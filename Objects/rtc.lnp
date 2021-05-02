@@ -1,0 +1,6 @@
+".\Objects\lcd_driver.obj",
+".\Objects\delay.obj",
+".\Objects\keyboard_driver.obj",
+".\Objects\keyboard_main.obj" 
+TO ".\Objects\rtc" 
+PRINT(".\Listings\rtc.m51") RAMSIZE(256) 

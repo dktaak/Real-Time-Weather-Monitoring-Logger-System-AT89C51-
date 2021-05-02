@@ -1,0 +1,100 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    04/10/2021  01:19:34  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\delay.obj, .\Objects\uart_driver.obj, .\Objects\spi_driver.obj, .\Objects\spi_main
+>> .obj TO .\Objects\menu PRINT (.\Listings\menu.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\delay.obj (DELAY)
+  .\Objects\uart_driver.obj (UART_DRIVER)
+  .\Objects\spi_driver.obj (SPI_DRIVER)
+  .\Objects\spi_main.obj (SPI_MAIN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ICASE)
+
+
+LINK MAP OF MODULE:  .\Objects\menu (DELAY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0011H     UNIT         _DATA_GROUP_
+            IDATA   0019H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0114H     UNIT         ?C?LIB_CODE
+            CODE    0914H     0067H     UNIT         ?PR?_UART_INTEGER?UART_DRIVER
+            CODE    097BH     005CH     UNIT         ?PR?READ_ADC?SPI_DRIVER
+            CODE    09D7H     0041H     UNIT         ?PR?_UART_INIT?UART_DRIVER
+            CODE    0A18H     0034H     UNIT         ?PR?_DELAY?DELAY
+            CODE    0A4CH     002AH     UNIT         ?PR?MAIN?SPI_MAIN
+            CODE    0A76H     0013H     UNIT         ?PR?_UART_TX_STRING?UART_DRIVER
+            CODE    0A89H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0A95H     0008H     UNIT         ?PR?_UART_TX?UART_DRIVER
+            CODE    0A9DH     0003H     UNIT         ?CO?SPI_MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\menu (DELAY)
+
+
+SEGMENT                                   DATA_GROUP 
+  +--> CALLED SEGMENT                   START    LENGTH
+-------------------------------------------------------
+?C_C51STARTUP                           -----    -----
+  +--> ?PR?MAIN?SPI_MAIN
+
+?PR?MAIN?SPI_MAIN                       0008H    0002H
+  +--> ?PR?_UART_INIT?UART_DRIVER
+  +--> ?PR?READ_ADC?SPI_DRIVER
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/10/2021  01:19:34  PAGE 2
+
+
+  +--> ?CO?SPI_MAIN
+  +--> ?PR?_UART_TX_STRING?UART_DRIVER
+  +--> ?PR?_UART_INTEGER?UART_DRIVER
+  +--> ?PR?_DELAY?DELAY
+
+?PR?_UART_TX_STRING?UART_DRIVER         -----    -----
+  +--> ?PR?_UART_TX?UART_DRIVER
+
+?PR?_UART_INTEGER?UART_DRIVER           000AH    000FH
+  +--> ?PR?_UART_TX?UART_DRIVER
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\menu (DELAY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?CLDPTR
+  C:0800H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?ULDIV
+  C:0855H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?ICASE
+  C:08E7H         PUBLIC        ?C?ICASE
+  -------         ENDMOD        ?C?ICASE
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0180H BYTE (18%) *
+******************************************************************************
+
+Program Size: data=26.0 xdata=0 code=675
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

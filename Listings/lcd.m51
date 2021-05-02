@@ -1,0 +1,147 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    04/09/2021  22:58:39  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\delay.obj, .\Objects\uart_driver.obj, .\Objects\interrupt_driver.obj, .\Objects\st
+>> ring.obj, .\Objects\interrupt_main.obj TO .\Objects\lcd PRINT (.\Listings\lcd.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\delay.obj (DELAY)
+  .\Objects\uart_driver.obj (UART_DRIVER)
+  .\Objects\interrupt_driver.obj (INTERRUPT_DRIVER)
+  .\Objects\string.obj (STRING)
+  .\Objects\interrupt_main.obj (INTERRUPT_MAIN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CSTPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ICASE)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\lcd (DELAY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0011H     UNIT         _DATA_GROUP_
+            DATA    0019H     0001H     UNIT         ?DT?INTERRUPT_DRIVER
+                    001AH     0006H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?INTERRUPT_MAIN
+                    0020H.1   0000H.7                *** GAP ***
+            DATA    0021H     0028H     UNIT         ?DT?INTERRUPT_MAIN
+            IDATA   0049H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0020H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+                    0026H     07DAH                  *** GAP ***
+            CODE    0800H     0130H     UNIT         ?PR?MAIN?INTERRUPT_MAIN
+            CODE    0930H     00C4H     UNIT         ?CO?INTERRUPT_MAIN
+            CODE    09F4H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0A80H     0085H     UNIT         ?PR?_MYSTRSTR?STRING
+            CODE    0B05H     0085H     UNIT         ?C?LIB_CODE
+            CODE    0B8AH     006EH     UNIT         ?PR?UART_HANDLER?INTERRUPT_DRIVER
+            CODE    0BF8H     0063H     UNIT         ?PR?_MYSTRCAT?STRING
+            CODE    0C5BH     005DH     UNIT         ?PR?_MYSTRCMP?STRING
+            CODE    0CB8H     0041H     UNIT         ?PR?_UART_INIT?UART_DRIVER
+            CODE    0CF9H     003DH     UNIT         ?PR?_MYSTRCPY?STRING
+            CODE    0D36H     0034H     UNIT         ?PR?_DELAY?DELAY
+            CODE    0D6AH     002EH     UNIT         ?PR?_MYSTRCHR?STRING
+            CODE    0D98H     0013H     UNIT         ?PR?_UART_TX_STRING?UART_DRIVER
+            CODE    0DABH     0008H     UNIT         ?PR?_UART_TX?UART_DRIVER
+            CODE    0DB3H     0008H     UNIT         ?PR?UART_RX?UART_DRIVER
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/09/2021  22:58:39  PAGE 2
+
+
+            CODE    0DBBH     0006H     UNIT         ?C_INITSEG
+            CODE    0DC1H     0005H     UNIT         ?PR?UART_INTERRUPT_ENABLE?INTERRUPT_DRIVER
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\lcd (DELAY)
+
+
+SEGMENT                                            DATA_GROUP 
+  +--> CALLED SEGMENT                            START    LENGTH
+----------------------------------------------------------------
+?PR?UART_HANDLER?INTERRUPT_DRIVER                -----    -----
+  +--> ?PR?_UART_TX?UART_DRIVER
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP                                    -----    -----
+  +--> ?PR?MAIN?INTERRUPT_MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?INTERRUPT_MAIN                          0008H    0005H
+  +--> ?PR?_UART_INIT?UART_DRIVER
+  +--> ?PR?UART_INTERRUPT_ENABLE?INTERRUPT_D...
+  +--> ?CO?INTERRUPT_MAIN
+  +--> ?PR?_UART_TX_STRING?UART_DRIVER
+  +--> ?PR?_MYSTRCPY?STRING
+  +--> ?PR?_MYSTRCMP?STRING
+  +--> ?PR?_MYSTRSTR?STRING
+  +--> ?PR?_MYSTRCAT?STRING
+  +--> ?PR?_MYSTRCHR?STRING
+
+?PR?_UART_TX_STRING?UART_DRIVER                  -----    -----
+  +--> ?PR?_UART_TX?UART_DRIVER
+
+?PR?_MYSTRCPY?STRING                             000DH    0006H
+
+?PR?_MYSTRCMP?STRING                             000DH    0006H
+
+?PR?_MYSTRSTR?STRING                             000DH    0009H
+  +--> ?PR?_MYSTRCHR?STRING
+
+?PR?_MYSTRCHR?STRING                             0016H    0003H
+
+?PR?_MYSTRCAT?STRING                             000DH    0009H
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\lcd (DELAY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?CLDPTR
+  C:0B05H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CLDOPTR
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/09/2021  22:58:39  PAGE 3
+
+
+  C:0B1EH         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:0B4BH         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?ICASE
+  C:0B5DH         PUBLIC        ?C?ICASE
+  -------         ENDMOD        ?C?ICASE
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY?DELAY
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?UART_RX?UART_DRIVER
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 04B7H BYTE (58%) *
+******************************************************************************
+
+Program Size: data=67.1 xdata=0 code=1484
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,12 @@
+".\Objects\i2c_frames.obj",
+".\Objects\i2c_fields.obj",
+".\Objects\rtc_driver.obj",
+".\Objects\delay.obj",
+".\Objects\timer_counter_driver.obj",
+".\Objects\uart_driver.obj",
+".\Objects\lcd8_driver.obj",
+".\Objects\interrupt_driver.obj",
+".\Objects\spi_driver.obj",
+".\Objects\main.obj" 
+TO ".\Objects\vector_project" 
+PRINT(".\Listings\vector_project.m51") RAMSIZE(256) 

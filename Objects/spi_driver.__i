@@ -1,0 +1,1 @@
+"spi_driver.c" OPTIMIZE (8,SPEED) BROWSE PRINT(.\Listings\spi_driver.lst) TABS (2) OBJECT(.\Objects\spi_driver.obj)

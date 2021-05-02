@@ -1,0 +1,166 @@
+C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/02/2021 10:09:26 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE UART_DRIVER
+OBJECT MODULE PLACED IN .\Objects\uart_driver.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE uart_driver.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\uart_driver.lst)
+                    - TABS(2) OBJECT(.\Objects\uart_driver.obj)
+
+line level    source
+
+   1          /*uart intialisation and transmission*/
+   2          #include"header.h"
+   3          
+   4          //u8 dec_to_bcd(u8 x){
+   5          //  u8 m,n;
+   6          //  m=x/10;
+   7          //  n=x%10;
+   8          //  x=((m<<4)|n);
+   9          //  return x;
+  10          //}
+  11          void uart_init(u16 baud)
+  12          {
+  13   1        SCON=0X50;
+  14   1        TMOD|=0X20;
+  15   1        switch(baud)
+  16   1        {
+  17   2        case 7200:TH1=252;break;
+  18   2        case 9600:TH1=253;break;
+  19   2        case 14400:TH1=254;break;
+  20   2        case 28800:TH1=255;break;
+  21   2        case 57600:
+  22   2          TH1=255;PCON |=(1<<7);break;
+  23   2        }
+  24   1        TR1=1;
+  25   1      }
+  26          
+  27          void uart_tx(u8 ch)
+  28          {
+  29   1      SBUF=ch;
+  30   1      while(TI==0);
+  31   1      TI=0;
+  32   1      }
+  33          
+  34          u8 uart_rx(void)
+  35          {
+  36   1      while(RI==0);
+  37   1        RI=0;
+  38   1      return SBUF;
+  39   1      }
+  40          
+  41          void uart_tx_string(u8 *str)
+  42          {
+  43   1        while(*str)
+  44   1        {
+  45   2          uart_tx(*str);
+  46   2          str++;
+  47   2        }
+  48   1      }
+  49          
+  50          void uart_rx_string(u8 *ptr,u8 max_len)
+  51          {
+  52   1        u8 i;RI=0;
+  53   1        for(i=0;i<max_len;i++)
+  54   1        {
+C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/02/2021 10:09:26 PAGE 2   
+
+  55   2          while(RI==0);
+  56   2          RI=0;//imp
+  57   2          ptr[i]=SBUF;
+  58   2          uart_tx(ptr[i]);
+  59   2          if(ptr[i]==Enter_key){
+  60   3            ptr[i]='\0';
+  61   3            break;
+  62   3          }
+  63   2        }
+  64   1        ptr[i]='\0';
+  65   1      }
+  66          
+  67          void uart_int(s8 n)
+  68          {
+  69   1        s8 i=0,a[10];
+  70   1        if(n<0){
+  71   2          uart_tx('-');
+  72   2          n=-n;
+  73   2        }
+  74   1        if(n==0)
+  75   1          uart_tx(48);
+  76   1        while(n)
+  77   1        {
+  78   2          a[i]=(n%10)+48;
+  79   2          n=n/10;
+  80   2          i++;
+  81   2        }
+  82   1        for(--i;i>=0;i--)
+  83   1        {
+  84   2          uart_tx(a[i]);
+  85   2        } 
+  86   1      }
+  87          void uart_float(float f){
+  88   1        long int ip,dp;
+  89   1        if(f<0){
+  90   2          uart_tx('-');
+  91   2          f=-f;
+  92   2        }
+  93   1        ip=f;
+  94   1        dp=(f-ip)*100;
+  95   1        uart_int(ip);
+  96   1        uart_tx('.');
+  97   1        uart_int(dp);
+  98   1      }
+  99          //void uart_tx_integer(u8 n)
+ 100          //{
+ 101          //  s8 i=0,j,a[3]={0,0,0};
+ 102          //  while(n)
+ 103          //  {
+ 104          //    a[i]=(n%10)+48;
+ 105          //    n=n/10;
+ 106          //    i++;
+ 107          //  }
+ 108          //  for(j=i-1;j>=0;j--)
+ 109          //  {
+ 110          //    uart_tx(a[j]);
+ 111          //  } 
+ 112          //}
+ 113          //void uart_rx_time(u8 *d)
+ 114          //{
+ 115          //uart_rx_string(d,10);
+ 116          
+C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/02/2021 10:09:26 PAGE 3   
+
+ 117          //d[0]=(((d[0]%48)<<4)|(d[1]%48));
+ 118          //d[1]=(((d[3]%48)<<4)|(d[4]%48));
+ 119          //d[2]=(((d[6]%48)<<4)|(d[7]%48));
+ 120          
+ 121          //  if(d[9]=='A')
+ 122          //    d[3]=0;
+ 123          //  else
+ 124          //    d[3]=1;
+ 125          //  
+ 126          //   d[4]='\0';
+ 127          //}
+ 128          
+ 129          //void uart_rx_date(u8 *d)
+ 130          //{
+ 131          //uart_rx_string(d,8);
+ 132          
+ 133          //d[0]=(((d[0]%48)<<4)|(d[1]%48));
+ 134          //d[1]=(((d[3]%48)<<4)|(d[4]%48));
+ 135          //d[2]=(((d[6]%48)<<4)|(d[7]%48));
+ 136          //   
+ 137          //   d[4]='\0';
+ 138          //}
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    418    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      25
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

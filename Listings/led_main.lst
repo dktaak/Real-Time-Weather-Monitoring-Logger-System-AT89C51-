@@ -1,0 +1,115 @@
+C51 COMPILER V9.60.0.0   LED_MAIN                                                          04/08/2021 23:48:53 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED_MAIN
+OBJECT MODULE PLACED IN .\Objects\led_main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE led_main.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\led_main.lst) TABS(
+                    -2) OBJECT(.\Objects\led_main.obj)
+
+line level    source
+
+   1          /*lcd program*/
+   2          
+   3          #include"header.h"
+   4          sbit led0=P1^7;
+   5          sbit led1=P1^6;
+   6          sbit led2=P1^5;
+   7          //sbit led3=P1^4;
+   8          sbit sw1=P3^4;
+   9          sbit sw2=P3^3;
+  10          sbit sw3=P3^2;
+  11          sbit sw4=P3^1;
+  12          
+  13          void main(){
+  14   1      u8 i;
+  15   1        while(1){
+  16   2        for(i=0;i<4;)
+  17   2          {
+  18   3            if(sw1==0){
+  19   4            while(sw1==0)
+  20   4             P1=(P1|0xf0)&(~(0x10<<i));
+  21   4            i++;
+  22   4            }
+  23   3          }
+  24   2      
+  25   2      } 
+  26   1      }
+  27          
+  28          /*
+  29          void main(){
+  30            
+  31            while(1){
+  32              P1=(P1&0x0f)&(0xf0|P3);
+  33          }
+  34          */
+  35          /*
+  36          void main(){
+  37            
+  38            while(1){
+  39             while(sw1==0&&sw2==0)    
+  40              led0=1;
+  41             led0=0;
+  42            }
+  43          }
+  44          */
+  45          /*
+  46          void main(){
+  47            //blink led till sw is pressed
+  48            while(1){
+  49              if(sw==0){
+  50                led0=~led0;
+  51                timer_delay_50ms();
+  52                timer_delay_50ms();
+  53              }
+  54              else
+C51 COMPILER V9.60.0.0   LED_MAIN                                                          04/08/2021 23:48:53 PAGE 2   
+
+  55                led0=1;
+  56            }
+  57          }
+  58          */
+  59          
+  60          /*
+  61          void main(){
+  62            while(1){
+  63              while(sw==1);
+  64              led0=~led0;
+  65              while(sw==0);
+  66              
+  67            }
+  68          }
+  69          */
+  70          /*
+  71          void main()
+  72          {
+  73            while(1){
+  74              while(sw==1);
+  75              while(sw==0);
+  76              led0=~led0;
+  77          }}
+  78          */
+  79          /*
+  80          void main(){
+  81            
+  82            while(1){
+  83              if(sw==0)
+  84                led0=0;
+  85              else
+  86                led0=1;
+  87            }
+  88          }
+  89          */
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     43    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

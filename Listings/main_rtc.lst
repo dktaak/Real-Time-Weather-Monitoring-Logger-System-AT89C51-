@@ -1,0 +1,96 @@
+C51 COMPILER V9.60.0.0   MAIN_RTC                                                          04/15/2021 18:52:34 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN_RTC
+OBJECT MODULE PLACED IN .\Objects\main_rtc.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main_rtc.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\main_rtc.lst) TABS(
+                    -2) OBJECT(.\Objects\main_rtc.obj)
+
+line level    source
+
+   1          #include"header.h"
+   2          #include"DS1307.h"
+   3          
+   4          u8 arr[12];
+   5          void main()
+   6          {
+   7   1      u8 time[12];
+   8   1      lcd_init();
+   9   1      lcd_cmd(0x0c);
+  10   1      uart_init(9600);
+  11   1      
+  12   1      i2c_detect();
+  13   1      //  uart_tx_string("\r\nEnter Date Format(18/07/93)\r\n");
+  14   1      //  uart_rx_date(arr);
+  15   1      //  rtc_set_date(arr[0],arr[1],arr[2]);//date,mn,yr
+  16   1        
+  17   1        
+  18   1      //uart_tx_string("\r\nEnter Time Format(11;07;59 A/P)\r\n");
+  19   1      //uart_rx_time(arr);
+  20   1      
+  21   1      //rtc_set_time(arr[0],arr[1],arr[2],arr[3]);//hr,min,sec
+  22   1      //uart_tx_string("\r\n");
+  23   1      //rtc_set_time(0x11,0x23,0x40,0);//hr,min,sec
+  24   1      //delay(100);
+  25   1      
+  26   1      //rtc_set_date(0x18,0x07,0x93);
+  27   1      //rtc_set_day(friday);
+  28   1      //uart_tx_string("\r\n  Time        Date\r\n");
+  29   1      //while(1){
+  30   1      
+  31   1      //rtc_read_time(time);
+  32   1      //lcd_cmd(0x80);
+  33   1      //lcd_string("Time ");
+  34   1      //lcd_string(time);
+  35   1      //uart_tx_string("\r\n");
+  36   1      //  
+  37   1      //uart_tx_string(time);
+  38   1      //uart_tx_string("  ");
+  39   1      ////  
+  40   1      ////rtc_read_date(time);
+  41   1      ////lcd_cmd(0xC0);
+  42   1      ////lcd_string("Date ");
+  43   1      ////lcd_string(time);
+  44   1      //////uart_tx_string("\r\n");
+  45   1      ////  
+  46   1      ////uart_tx_string(time);
+  47   1      ////uart_tx_string("\r\n");
+  48   1      ////  
+  49   1      ////d=rtc_read_day();
+  50   1      ////lcd_string(" ");
+  51   1      ////uart_tx_string(" ");
+  52   1      ////switch(d){
+  53   1      ////case 1: lcd_string("SUN");
+  54   1      ////        uart_tx_string("SUN");break;
+C51 COMPILER V9.60.0.0   MAIN_RTC                                                          04/15/2021 18:52:34 PAGE 2   
+
+  55   1      ////case 2: lcd_string("MON");
+  56   1      ////    uart_tx_string("MON");break;
+  57   1      ////case 3: lcd_string("TUE");
+  58   1      ////    uart_tx_string("TUE");break;
+  59   1      ////case 4: lcd_string("WED");
+  60   1      ////    uart_tx_string("WED");break;
+  61   1      ////case 5: lcd_string("THU");
+  62   1      ////    uart_tx_string("THU");break;
+  63   1      ////case 6: lcd_string("FRI");
+  64   1      ////    uart_tx_string("FRI");break;
+  65   1      ////case 7: lcd_string("SAT");
+  66   1      ////    uart_tx_string("SAT");break;
+  67   1      ////}
+  68   1      //}
+  69   1      }
+*** WARNING C280 IN LINE 7 OF main_rtc.c: 'time': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     18    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12      12
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

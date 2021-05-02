@@ -1,0 +1,36 @@
+C51 COMPILER V9.60.0.0   LCD_CGRAM_DRIVER                                                  04/15/2021 13:21:17 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LCD_CGRAM_DRIVER
+OBJECT MODULE PLACED IN .\Objects\lcd_cgram_driver.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE lcd_cgram_driver.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\lcd_cgram_d
+                    -river.lst) TABS(2) OBJECT(.\Objects\lcd_cgram_driver.obj)
+
+line level    source
+
+   1          #include"header.h"
+   2          code u8 custome_char[16]={0x0,0x8,0x18,0x18,0x18,0x8,0x0,0x0,  0x1,0xA,0x18,0x1B,0x18,0xA,0x1,0x0};
+   3          
+   4          void cgram_init()
+   5          {
+   6   1        u8 i;
+   7   1        lcd_cmd(0x40);
+   8   1        for(i=0;i<16;i++){
+   9   2          lcd_data(custome_char[i]);
+  10   2        }
+  11   1        lcd_cmd(0x80);
+  12   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     38    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

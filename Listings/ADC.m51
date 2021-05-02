@@ -1,0 +1,165 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    04/15/2021  12:52:27  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\delay.obj, .\Objects\lcd8_driver.obj, .\Objects\lcd_main.obj TO .\Objects\ADC PRIN
+>> T (.\Listings\ADC.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\delay.obj (DELAY)
+  .\Objects\lcd8_driver.obj (LCD8_DRIVER)
+  .\Objects\lcd_main.obj (LCD_MAIN)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPADD)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPCMP)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPNEG)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?CASTF)
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?SLDIV)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LLDIDATA)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LSTIDATA)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULDIV)
+
+
+LINK MAP OF MODULE:  .\Objects\ADC (DELAY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0054H     UNIT         _DATA_GROUP_
+            DATA    005CH     0003H     UNIT         ?DT?_LCD_STRING?LCD8_DRIVER
+            IDATA   005FH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0454H     UNIT         ?C?LIB_CODE
+            CODE    0C54H     00D6H     UNIT         ?PR?_LCD_INT?LCD8_DRIVER
+            CODE    0D2AH     008CH     UNIT         ?PR?_LCD_FLOAT?LCD8_DRIVER
+            CODE    0DB6H     0044H     UNIT         ?C?LDIV
+            CODE    0DFAH     003FH     UNIT         ?PR?_LCD_STRING?LCD8_DRIVER
+            CODE    0E39H     0034H     UNIT         ?PR?_DELAY?DELAY
+            CODE    0E6DH     0020H     UNIT         ?PR?MAIN?LCD_MAIN
+            CODE    0E8DH     0014H     UNIT         ?PR?LCD_INIT?LCD8_DRIVER
+            CODE    0EA1H     0012H     UNIT         ?PR?_LCD_CMD?LCD8_DRIVER
+            CODE    0EB3H     0012H     UNIT         ?PR?_LCD_DATA?LCD8_DRIVER
+            CODE    0EC5H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\ADC (DELAY)
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/15/2021  12:52:27  PAGE 2
+
+
+
+
+SEGMENT                               DATA_GROUP 
+  +--> CALLED SEGMENT               START    LENGTH
+---------------------------------------------------
+?C_C51STARTUP                       -----    -----
+  +--> ?PR?MAIN?LCD_MAIN
+
+?PR?MAIN?LCD_MAIN                   -----    -----
+  +--> ?PR?LCD_INIT?LCD8_DRIVER
+  +--> ?PR?_LCD_INT?LCD8_DRIVER
+  +--> ?PR?_LCD_CMD?LCD8_DRIVER
+  +--> ?PR?_LCD_FLOAT?LCD8_DRIVER
+
+?PR?LCD_INIT?LCD8_DRIVER            -----    -----
+  +--> ?PR?_LCD_CMD?LCD8_DRIVER
+
+?PR?_LCD_CMD?LCD8_DRIVER            -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+?PR?_LCD_INT?LCD8_DRIVER            0014H    0048H
+  +--> ?PR?_LCD_DATA?LCD8_DRIVER
+
+?PR?_LCD_DATA?LCD8_DRIVER           -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+?PR?_LCD_FLOAT?LCD8_DRIVER          0008H    000CH
+  +--> ?PR?_LCD_DATA?LCD8_DRIVER
+  +--> ?PR?_LCD_INT?LCD8_DRIVER
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\ADC (DELAY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?FPADD
+  C:0807H         PUBLIC        ?C?FPADD
+  C:0803H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPMUL
+  C:08F8H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FPCMP
+  C:0A00H         PUBLIC        ?C?FPCMP
+  C:09FEH         PUBLIC        ?C?FPCMP3
+  -------         ENDMOD        ?C?FPCMP
+
+  -------         MODULE        ?C?FPNEG
+  C:0A77H         PUBLIC        ?C?FPNEG
+  -------         ENDMOD        ?C?FPNEG
+
+  -------         MODULE        ?C?FCAST
+  C:0A92H         PUBLIC        ?C?FCASTC
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/15/2021  12:52:27  PAGE 3
+
+
+  C:0A8DH         PUBLIC        ?C?FCASTI
+  C:0A88H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:0AC6H         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?CLDPTR
+  C:0B47H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?SLDIV
+  C:0DB6H         PUBLIC        ?C?SLDIV
+  -------         ENDMOD        ?C?SLDIV
+
+  -------         MODULE        ?C?LNEG
+  C:0B60H         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?LLDIDATA
+  C:0B6EH         PUBLIC        ?C?LLDIDATA
+  -------         ENDMOD        ?C?LLDIDATA
+
+  -------         MODULE        ?C?LSTIDATA
+  C:0B7AH         PUBLIC        ?C?LSTIDATA
+  -------         ENDMOD        ?C?LSTIDATA
+
+  -------         MODULE        ?C?ULDIV
+  C:0BC2H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_STRING?LCD8_DRIVER
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 022DH BYTE (27%) *
+******************************************************************************
+
+Program Size: data=96.0 xdata=0 code=1748
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

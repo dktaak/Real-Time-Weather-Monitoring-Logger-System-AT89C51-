@@ -1,0 +1,7 @@
+".\Objects\delay.obj",
+".\Objects\uart_driver.obj",
+".\Objects\interrupt_driver.obj",
+".\Objects\string.obj",
+".\Objects\interrupt_main.obj" 
+TO ".\Objects\lcd" 
+PRINT(".\Listings\lcd.m51") RAMSIZE(256) 

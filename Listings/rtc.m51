@@ -1,0 +1,104 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    04/07/2021  07:40:53  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\lcd_driver.obj, .\Objects\delay.obj, .\Objects\keyboard_driver.obj, .\Objects\keyb
+>> oard_main.obj TO .\Objects\rtc PRINT (.\Listings\rtc.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\lcd_driver.obj (LCD_DRIVER)
+  .\Objects\delay.obj (DELAY)
+  .\Objects\keyboard_driver.obj (KEYBOARD_DRIVER)
+  .\Objects\keyboard_main.obj (KEYBOARD_MAIN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?OFFXADD)
+
+
+LINK MAP OF MODULE:  .\Objects\rtc (LCD_DRIVER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         ?DT?_LCD_STRING?LCD_DRIVER
+            DATA    000BH     0002H     UNIT         ?DT?KEYBOARD_DRIVER
+            DATA    000DH     0001H     UNIT         _DATA_GROUP_
+            IDATA   000EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     00BFH     UNIT         ?PR?KEYSCAN?KEYBOARD_DRIVER
+            CODE    08BFH     003FH     UNIT         ?PR?_LCD_STRING?LCD_DRIVER
+            CODE    08FEH     003DH     UNIT         ?PR?MAIN?KEYBOARD_MAIN
+            CODE    093BH     0034H     UNIT         ?PR?_DELAY?DELAY
+            CODE    096FH     0025H     UNIT         ?C?LIB_CODE
+            CODE    0994H     0020H     UNIT         ?CO?KEYBOARD_DRIVER
+            CODE    09B4H     0014H     UNIT         ?PR?LCD_INIT?LCD_DRIVER
+            CODE    09C8H     0012H     UNIT         ?PR?_LCD_CMD?LCD_DRIVER
+            CODE    09DAH     0012H     UNIT         ?PR?_LCD_DATA?LCD_DRIVER
+            CODE    09ECH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\rtc (LCD_DRIVER)
+
+
+SEGMENT                               DATA_GROUP 
+  +--> CALLED SEGMENT               START    LENGTH
+---------------------------------------------------
+?C_C51STARTUP                       -----    -----
+  +--> ?PR?MAIN?KEYBOARD_MAIN
+
+?PR?MAIN?KEYBOARD_MAIN              000DH    0001H
+  +--> ?PR?LCD_INIT?LCD_DRIVER
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/07/2021  07:40:53  PAGE 2
+
+
+  +--> ?PR?KEYSCAN?KEYBOARD_DRIVER
+  +--> ?PR?_LCD_DATA?LCD_DRIVER
+
+?PR?LCD_INIT?LCD_DRIVER             -----    -----
+  +--> ?PR?_LCD_CMD?LCD_DRIVER
+
+?PR?_LCD_CMD?LCD_DRIVER             -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+?PR?KEYSCAN?KEYBOARD_DRIVER         -----    -----
+  +--> ?PR?_DELAY?DELAY
+  +--> ?CO?KEYBOARD_DRIVER
+
+?PR?_LCD_DATA?LCD_DRIVER            -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\rtc (LCD_DRIVER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?CLDPTR
+  C:096FH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?OFFXADD
+  C:0988H         PUBLIC        ?C?OFFXADD
+  -------         ENDMOD        ?C?OFFXADD
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_STRING?LCD_DRIVER
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 01C7H BYTE (22%) *
+******************************************************************************
+
+Program Size: data=15.0 xdata=0 code=507
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

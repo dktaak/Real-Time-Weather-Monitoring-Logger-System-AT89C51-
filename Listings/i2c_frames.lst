@@ -1,0 +1,224 @@
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE I2C_FRAMES
+OBJECT MODULE PLACED IN .\Objects\i2c_frames.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE i2c_frames.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\i2c_frames.lst) T
+                    -ABS(2) OBJECT(.\Objects\i2c_frames.obj)
+
+line level    source
+
+   1          #include"header.h"
+   2          bit v;u8 a[2]={0,0};
+   3          extern delay(u16);
+   4          
+   5          u8 i2c_byte_read_ds1621(void)
+   6          {
+   7   1        u8 sa=0x90;
+   8   1        u8 temp;
+   9   1        i2c_start();//restart condition
+  10   1        i2c_write(sa);//sa+w
+  11   1        i2c_ack();
+  12   1        i2c_write(0xAA);//init temp conv
+  13   1        i2c_ack();
+  14   1      
+  15   1        i2c_start();//restart condition
+  16   1        i2c_write(sa|0x1);//SA+R
+  17   1        i2c_ack();
+  18   1        temp=i2c_read();
+  19   1        i2c_stop();
+  20   1        return temp;
+  21   1      }
+  22          
+  23          void i2c_byte_set_ds1621(void)
+  24          {
+  25   1        u8 sa=0x90;
+  26   1      
+  27   1        i2c_start();
+  28   1        i2c_write(sa);//sa+w
+  29   1        i2c_ack();
+  30   1        i2c_write(0xAc);
+  31   1        i2c_ack();
+  32   1        i2c_write(0x02);
+  33   1        i2c_ack();
+  34   1        
+  35   1        i2c_start();//restart condition
+  36   1        i2c_write(sa);//sa+w
+  37   1        i2c_ack();
+  38   1        i2c_write(0xEE);//init temp conv
+  39   1        i2c_ack();
+  40   1        
+  41   1        i2c_stop();
+  42   1      }
+  43          
+  44          u8 i2c_byte_write_at24c512(u8 sa,u16 mr,u8 *p)
+  45          {
+  46   1              u8 i=0;
+  47   1              i2c_start();
+  48   1              i2c_write(sa);
+  49   1              i2c_ack();
+  50   1      
+  51   1              i2c_write((mr>>8)&0xFF); //higher byte memory address
+  52   1              i2c_ack();
+  53   1              i2c_write(mr&0xFF);//lower byte memory address
+  54   1              i2c_ack();
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 2   
+
+  55   1      
+  56   1              while(*p)
+  57   1              {
+  58   2                i2c_write(*p);
+  59   2                i2c_ack();
+  60   2                p++;i++;
+  61   2              }
+  62   1      
+  63   1              i2c_stop();
+  64   1              delay(10);
+  65   1              return i;
+  66   1      }
+  67          u8 i2c_byte_read_at24c512(u8 sa,u16 mr)
+  68          {
+  69   1            u8 temp;
+  70   1            i2c_start();
+  71   1            i2c_write(sa);//sa+w
+  72   1            i2c_ack();
+  73   1            i2c_write((mr>>8)&0xFF); //higher byte address
+  74   1            i2c_ack();
+  75   1            i2c_write(mr&0xFF);//lower byte address
+  76   1            i2c_ack();
+  77   1            i2c_start();//restart condition
+  78   1            i2c_write(sa|0x1);//SA+R
+  79   1            i2c_ack();
+  80   1            temp=i2c_read();
+  81   1            i2c_noack();
+  82   1            i2c_stop();
+  83   1            return temp;
+  84   1      }
+  85          //u8 i2c_byte_read_frame(u8 sa,u8 mrh,u8 mrl)
+  86          //{
+  87          //  u8 i=0;
+  88          //   u8 temp;
+  89          //  i2c_start();
+  90          //  
+  91          //  i2c_write(sa);
+  92          //    v=i2c_ack();
+  93          //  
+  94          //  i2c_write(mrh);
+  95          //    v=i2c_ack();
+  96          //  
+  97          //  i2c_write(mrl);
+  98          //    v=i2c_ack();
+  99          //  
+ 100          //  i2c_start();
+ 101          //  i2c_write(sa|1);//sa+R
+ 102          //    v=i2c_ack();
+ 103          
+ 104          //  temp=i2c_read();
+ 105          
+ 106          //  //temp[5]='\0';
+ 107          //  i2c_noack();
+ 108          //  i2c_stop();
+ 109          //  return temp;
+ 110          //}
+ 111          void i2c_byte_write_frame(u8 sa,u8 mr, u8 d)
+ 112          {
+ 113   1        
+ 114   1            i2c_start();
+ 115   1            i2c_write(sa);
+ 116   1            v=i2c_ack();
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 3   
+
+ 117   1      
+ 118   1            i2c_write(mr);
+ 119   1            v=i2c_ack();
+ 120   1      
+ 121   1            i2c_write(d);
+ 122   1            v=i2c_ack();
+ 123   1      
+ 124   1            i2c_stop();
+ 125   1      }
+ 126          u8 i2c_byte_read_frame(u8 sa,u8 mr)
+ 127          {
+ 128   1            u8 temp;
+ 129   1            i2c_start();
+ 130   1            i2c_write(sa);
+ 131   1            v=i2c_ack();
+ 132   1      
+ 133   1            i2c_write(mr);
+ 134   1            v=i2c_ack();
+ 135   1      
+ 136   1            i2c_start();
+ 137   1            i2c_write(sa|1);//sa+R
+ 138   1            v=i2c_ack();
+ 139   1      
+ 140   1            temp=i2c_read();
+ 141   1            i2c_noack();
+ 142   1            i2c_stop();
+ 143   1            return temp;
+ 144   1      }
+ 145          //void uart_tx_hexa(u8 n){
+ 146          //    s8 r,i=1;
+ 147          //    while(n)
+ 148          //    {
+ 149          //      r=n%16;
+ 150          //      if(r>9)
+ 151          //        a[i]=r+55;
+ 152          //      else 
+ 153          //        a[i]=r+48;
+ 154          //      i--;
+ 155          //      n=n/16;
+ 156          //    }
+ 157          //    for(i=0;i<2;i++)
+ 158          //     uart_tx(a[i]);
+ 159          //}
+ 160          
+ 161          //void i2c_detect(void){
+ 162          //  u8 sa,temp;
+ 163          //  u32 c=0;
+ 164          ////  memset(a,0,sizeof(a));
+ 165          //  uart_init(9600);
+ 166          //  uart_tx_string("Device address\r\n");
+ 167          //  for(sa=0;sa<255;sa++){
+ 168          //  
+ 169          //      temp=sa&0xFE;
+ 170          //    i2c_start();
+ 171          //   //i2c_write(sa<<1);
+ 172          //    i2c_write(temp);
+ 173          //    //   uart_tx_integer(sa);
+ 174          //   v=i2c_ack();
+ 175          //    i2c_stop();
+ 176          //    if(v==0){
+ 177          //      c++;
+ 178          //      sa++;
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 4   
+
+ 179          //     uart_tx_string("0x");
+ 180          //      uart_tx_hexa(temp);
+ 181          //      //uart_tx_hexa(sa<<1);
+ 182          ////     if((sa<<1)==0xD0)
+ 183          ////      uart_tx_string("  RTC");//
+ 184          ////     if((sa<<1)==0xA0)
+ 185          ////      uart_tx_string("  EEPROM"); 
+ 186          ////     uart_tx_string("\r\n");
+ 187          //   }  
+ 188          //  
+ 189          
+ 190          //   }
+ 191          //   uart_tx_string("\r\nTotal devices: "); 
+ 192          //   uart_int(c);
+ 193          // }
+ 194          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    353    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2      20
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

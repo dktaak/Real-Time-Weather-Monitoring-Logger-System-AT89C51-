@@ -1,0 +1,31 @@
+C51 COMPILER V9.60.0.0   MN                                                                03/29/2021 23:26:34 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MN
+OBJECT MODULE PLACED IN .\Objects\mn.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE mn.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\mn.lst
+                    -) TABS(2) OBJECT(.\Objects\mn.obj)
+
+line level    source
+
+   1          unsigned long int c;
+   2          void main()
+   3          {
+   4   1      c=0;
+   5   1      while(1)
+   6   1      c++;
+   7   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     32    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

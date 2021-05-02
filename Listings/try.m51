@@ -1,0 +1,136 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    04/03/2021  09:35:57  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj, .\Objects\uart_driver.obj TO .\Objects\try PRINT (.\Listings\try.m51) RA
+>> MSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\main.obj (MAIN)
+  .\Objects\uart_driver.obj (UART_DRIVER)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CSTOPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ICASE)
+
+
+LINK MAP OF MODULE:  .\Objects\try (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         ?DT?_UART_RX_STRING?UART_DRIVER
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0068H     UNIT         ?C?LIB_CODE
+            CODE    0868H     0041H     UNIT         ?PR?_UART_INIT?UART_DRIVER
+            CODE    08A9H     0034H     UNIT         ?PR?_UART_RX_STRING?UART_DRIVER
+            CODE    08DDH     0023H     UNIT         ?PR?MAIN?MAIN
+            CODE    0900H     0013H     UNIT         ?PR?_UART_TX_STRING?UART_DRIVER
+            CODE    0913H     000CH     UNIT         ?C_C51STARTUP
+            CODE    091FH     0008H     UNIT         ?PR?_UART_TX?UART_DRIVER
+            CODE    0927H     0005H     UNIT         ?PR?UART_INTERRUPT_ENABLE?UART_DRIVER
+            CODE    092CH     0005H     UNIT         ?PR?UART_INTERRUPT_DISABLE?UART_DRIVER
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\try (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN
+  +--> ?PR?_UART_INIT?UART_DRIVER
+  +--> ?PR?_UART_TX?UART_DRIVER
+
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/03/2021  09:35:57  PAGE 2
+
+
+UNRESOLVED EXTERNAL SYMBOLS:
+   _DELAY
+   _I2C_BYTE_READ_FRAME
+   _I2C_BYTE_WRITE_FRAME
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\try (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?CLDPTR
+  C:0800H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CSTOPTR
+  C:0819H         PUBLIC        ?C?CSTOPTR
+  -------         ENDMOD        ?C?CSTOPTR
+
+  -------         MODULE        ?C?ICASE
+  C:083BH         PUBLIC        ?C?ICASE
+  -------         ENDMOD        ?C?ICASE
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_UART_TX_STRING?UART_DRIVER
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_UART_RX_STRING?UART_DRIVER
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?UART_INTERRUPT_ENABLE?UART_DRIVER
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?UART_INTERRUPT_DISABLE?UART_DRIVER
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _I2C_BYTE_READ_FRAME
+    MODULE:  .\Objects\main.obj (MAIN)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAY
+    MODULE:  .\Objects\main.obj (MAIN)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _I2C_BYTE_WRITE_FRAME
+    MODULE:  .\Objects\main.obj (MAIN)
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _I2C_BYTE_WRITE_FRAME
+    MODULE:  .\Objects\main.obj (MAIN)
+    ADDRESS: 08EBH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY
+    MODULE:  .\Objects\main.obj (MAIN)
+    ADDRESS: 08F2H
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/03/2021  09:35:57  PAGE 3
+
+
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _I2C_BYTE_READ_FRAME
+    MODULE:  .\Objects\main.obj (MAIN)
+    ADDRESS: 08F9H
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00BDH BYTE ( 9%) *
+******************************************************************************
+
+Program Size: data=12.0 xdata=0 code=308
+LINK/LOCATE RUN COMPLETE.  10 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,4 @@
+".\Objects\main.obj",
+".\Objects\uart_driver.obj" 
+TO ".\Objects\try" 
+PRINT(".\Listings\try.m51") RAMSIZE(256) 

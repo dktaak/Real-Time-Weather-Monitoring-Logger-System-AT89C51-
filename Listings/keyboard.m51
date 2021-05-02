@@ -1,0 +1,111 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    04/08/2021  00:03:30  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\lcd_driver.obj, .\Objects\delay.obj, .\Objects\keyboard_driver.obj, .\Objects\lcd_
+>> cgram_driver.obj, .\Objects\lcd_main.obj TO .\Objects\keyboard PRINT (.\Listings\keyboard.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\lcd_driver.obj (LCD_DRIVER)
+  .\Objects\delay.obj (DELAY)
+  .\Objects\keyboard_driver.obj (KEYBOARD_DRIVER)
+  .\Objects\lcd_cgram_driver.obj (LCD_CGRAM_DRIVER)
+  .\Objects\lcd_main.obj (LCD_MAIN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?OFFXADD)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\keyboard (LCD_DRIVER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0011H     UNIT         ?DT?_LCD_INTEGER?LCD_DRIVER
+            DATA    0019H     0005H     UNIT         ?DT?MATH?KEYBOARD_DRIVER
+            DATA    001EH     0002H     UNIT         ?DT?KEYBOARD_DRIVER
+            DATA    0020H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     00BFH     UNIT         ?PR?KEYSCAN?KEYBOARD_DRIVER
+            CODE    08BFH     0098H     UNIT         ?PR?MATH?KEYBOARD_DRIVER
+            CODE    0957H     008CH     UNIT         ?C_C51STARTUP
+            CODE    09E3H     003AH     UNIT         ?PR?_LCD_INTEGER?LCD_DRIVER
+            CODE    0A1DH     0034H     UNIT         ?PR?_DELAY?DELAY
+            CODE    0A51H     0026H     UNIT         ?PR?CGRAM_INIT?LCD_CGRAM_DRIVER
+            CODE    0A77H     0020H     UNIT         ?CO?KEYBOARD_DRIVER
+            CODE    0A97H     0014H     UNIT         ?PR?LCD_INIT?LCD_DRIVER
+            CODE    0AABH     0012H     UNIT         ?PR?_LCD_CMD?LCD_DRIVER
+            CODE    0ABDH     0012H     UNIT         ?PR?_LCD_DATA?LCD_DRIVER
+            CODE    0ACFH     0012H     UNIT         ?PR?MAIN?LCD_MAIN
+            CODE    0AE1H     0010H     UNIT         ?CO?LCD_CGRAM_DRIVER
+            CODE    0AF1H     000CH     UNIT         ?C?LIB_CODE
+            CODE    0AFDH     0007H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\keyboard (LCD_DRIVER)
+
+
+SEGMENT                                   DATA_GROUP 
+  +--> CALLED SEGMENT                   START    LENGTH
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/08/2021  00:03:30  PAGE 2
+
+
+-------------------------------------------------------
+?C_C51STARTUP                           -----    -----
+  +--> ?PR?MAIN?LCD_MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?LCD_MAIN                       -----    -----
+  +--> ?PR?LCD_INIT?LCD_DRIVER
+  +--> ?PR?CGRAM_INIT?LCD_CGRAM_DRIVER
+  +--> ?PR?_LCD_DATA?LCD_DRIVER
+
+?PR?LCD_INIT?LCD_DRIVER                 -----    -----
+  +--> ?PR?_LCD_CMD?LCD_DRIVER
+
+?PR?_LCD_CMD?LCD_DRIVER                 -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+?PR?CGRAM_INIT?LCD_CGRAM_DRIVER         0020H    0001H
+  +--> ?PR?_LCD_CMD?LCD_DRIVER
+  +--> ?CO?LCD_CGRAM_DRIVER
+  +--> ?PR?_LCD_DATA?LCD_DRIVER
+
+?PR?_LCD_DATA?LCD_DRIVER                -----    -----
+  +--> ?PR?_DELAY?DELAY
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\keyboard (LCD_DRIVER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C?OFFXADD
+  C:0AF1H         PUBLIC        ?C?OFFXADD
+  -------         ENDMOD        ?C?OFFXADD
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_INTEGER?LCD_DRIVER
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MATH?KEYBOARD_DRIVER
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 026BH BYTE (30%) *
+******************************************************************************
+
+Program Size: data=34.0 xdata=0 code=775
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

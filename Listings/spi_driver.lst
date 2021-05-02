@@ -1,0 +1,64 @@
+C51 COMPILER V9.60.0.0   SPI_DRIVER                                                        05/02/2021 10:09:27 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SPI_DRIVER
+OBJECT MODULE PLACED IN .\Objects\spi_driver.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE spi_driver.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\spi_driver.lst) T
+                    -ABS(2) OBJECT(.\Objects\spi_driver.obj)
+
+line level    source
+
+   1          #include"header.h"
+   2          
+   3          sbit clk=P1^4;
+   4          sbit din=P1^5;
+   5          sbit dout=P1^6;
+   6          sbit cs=P1^7;
+   7          
+   8          
+   9          
+  10          u16 read_adc(bit d1,bit d0)
+  11          {
+  12   1        u16 temp=0x0;
+  13   1        s8 i;//important signed
+  14   1        
+  15   1        cs=0;
+  16   1        
+  17   1        clk=0; din=1; clk=1;//start 
+  18   1        clk=0; din=1; clk=1;//sgl/dfl
+  19   1        clk=0; din=1; clk=1;//D2;
+  20   1      
+  21   1        clk=0; din=d1; clk=1;//D1
+  22   1        clk=0; din=d0; clk=1;//D0
+  23   1        
+  24   1        /*channel selection*/
+  25   1        clk=0;clk=1;////analog sampling
+  26   1        clk=0;clk=1;//null bit_ by slave to master
+  27   1          
+  28   1        //reading 12 bits
+  29   1        for(i=11;i>=0;i--)
+  30   1        {
+  31   2          clk=0;
+  32   2          
+  33   2          if(dout==1)
+  34   2            temp=temp|(1<<i);//reading 12 bits
+  35   2          
+  36   2          clk=1;
+  37   2        }
+  38   1        cs=1;
+  39   1        return temp;
+  40   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    100    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       2
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

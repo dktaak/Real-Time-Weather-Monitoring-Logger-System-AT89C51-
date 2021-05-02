@@ -1,0 +1,7 @@
+".\Objects\lcd_driver.obj",
+".\Objects\delay.obj",
+".\Objects\keyboard_driver.obj",
+".\Objects\lcd_cgram_driver.obj",
+".\Objects\lcd_main.obj" 
+TO ".\Objects\keyboard" 
+PRINT(".\Listings\keyboard.m51") RAMSIZE(256) 

@@ -1,0 +1,6 @@
+".\Objects\delay.obj",
+".\Objects\uart_driver.obj",
+".\Objects\spi_driver.obj",
+".\Objects\spi_main.obj" 
+TO ".\Objects\menu" 
+PRINT(".\Listings\menu.m51") RAMSIZE(256) 

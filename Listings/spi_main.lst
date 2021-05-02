@@ -1,0 +1,82 @@
+C51 COMPILER V9.60.0.0   SPI_MAIN                                                          04/15/2021 12:49:52 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SPI_MAIN
+OBJECT MODULE PLACED IN .\Objects\spi_main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE spi_main.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\spi_main.lst) TABS(
+                    -2) OBJECT(.\Objects\spi_main.obj)
+
+line level    source
+
+   1          #include"header.h"
+   2          #define adc_vtg (step*adc_value)
+   3          #define adc_per (p*adc_value)
+   4          
+   5          //#define adc_per(adc_value) (p*adc_value)
+   6          
+   7          void main()
+   8          {
+   9   1        u16 adc_value;float step=5.0/4095;float p=100.0/4095;
+  10   1        lcd_init();
+  11   1        uart_init(9600);
+  12   1        
+  13   1        while(1)
+  14   1        {
+  15   2          /*channel 0*/
+  16   2          adc_value=read_adc(0,0);
+  17   2          lcd_cmd(0x80);
+  18   2          lcd_string("CH0=");
+  19   2          lcd_float(adc_vtg);
+  20   2          lcd_data(' ');
+  21   2          uart_tx_string("CH0=");
+  22   2          uart_float(adc_vtg);
+  23   2          uart_tx_string("\r\n");
+  24   2          
+  25   2          /*channel 1*/
+  26   2          adc_value=read_adc(0,1);
+  27   2      //  lcd_cmd(0x1);
+  28   2          lcd_string("CH1=");
+  29   2          lcd_float(adc_vtg);
+  30   2      //  lcd_data(' ');
+  31   2          uart_tx_string("CH1=");
+  32   2          uart_float(adc_vtg);
+  33   2          uart_tx_string("\r\n");
+  34   2          
+  35   2              /*channel 2*/
+  36   2          adc_value=read_adc(1,0);
+  37   2          lcd_cmd(0xc0);
+  38   2          lcd_string("CH2=");
+  39   2          lcd_float(adc_per);
+  40   2          lcd_data(' ');
+  41   2          uart_tx_string("CH2=");
+  42   2          uart_float(adc_per);
+  43   2          uart_tx_string("\r\n");
+  44   2          
+  45   2              /*channel 3*/
+  46   2          adc_value=read_adc(1,1);
+  47   2      //  lcd_cmd(0x1);
+  48   2          lcd_string("CH3=");
+  49   2          lcd_float(adc_per);
+  50   2      //  lcd_data(' ');
+  51   2          uart_tx_string("CH3=");
+  52   2          uart_float(adc_per);
+  53   2          uart_tx_string("\r\n\r\n");
+  54   2        }
+C51 COMPILER V9.60.0.0   SPI_MAIN                                                          04/15/2021 12:49:52 PAGE 2   
+
+  55   1        
+  56   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    385    ----
+   CONSTANT SIZE    =     28    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
