@@ -1,7 +1,7 @@
 /*lcd program*/
 
 #include"header.h"
-sbit led0=P1^7;
+sbit led0=P3^7;
 sbit led1=P1^6;
 sbit led2=P1^5;
 //sbit led3=P1^4;
@@ -10,20 +10,21 @@ sbit sw2=P3^3;
 sbit sw3=P3^2;
 sbit sw4=P3^1;
 
-void main(){
-u8 i;
-	while(1){
-	for(i=0;i<4;)
-		{
-			if(sw1==0){
-			while(sw1==0)
-			 P1=(P1|0xf0)&(~(0x10<<i));
-			i++;
-			}
-		}
+////void main(){
+////u8 i;
+////	while(1){
+////	for(i=0;i<4;)
+////		{
+////			if(sw1==0){
+////			while(sw1==0)
+////			 P1=(P1|0xf0)&(~(0x10<<i));
+////			i++;
+////			}
+////		}
 
-}	
-}
+////}	
+//}
+
 
 /*
 void main(){
@@ -42,20 +43,21 @@ void main(){
 	}
 }
 */
-/*
+
 void main(){
+	u8 k;
 	//blink led till sw is pressed
 	while(1){
-		if(sw==0){
+//		if(sw1==0){
 			led0=~led0;
-			timer_delay_50ms();
-			timer_delay_50ms();
-		}
-		else
-			led0=1;
+			for(k=0;k<20;k++)
+			  timer_delay_50ms();
+//		}
+//		else
+//			led0=1;
 	}
 }
-*/
+
 
 /*
 void main(){

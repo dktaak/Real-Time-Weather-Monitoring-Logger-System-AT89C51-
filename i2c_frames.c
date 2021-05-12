@@ -1,9 +1,10 @@
 #include"header.h"
 bit v;u8 a[2]={0,0};
-extern delay(u16);
+//extern delay(u16);
 
-u8 i2c_byte_read_ds1621(void)
+s8 i2c_byte_read_ds1621(void)
 {
+	
 	u8 sa=0x90;
   u8 temp;
 	i2c_start();//restart condition
@@ -16,6 +17,7 @@ u8 i2c_byte_read_ds1621(void)
 	i2c_write(sa|0x1);//SA+R
 	i2c_ack();
   temp=i2c_read();
+	i2c_ack();
 	i2c_stop();
 	return temp;
 }
@@ -41,47 +43,49 @@ void i2c_byte_set_ds1621(void)
 	i2c_stop();
 }
 
-u8 i2c_byte_write_at24c512(u8 sa,u16 mr,u8 *p)
-{
-				u8 i=0;
-				i2c_start();
-				i2c_write(sa);
-				i2c_ack();
+//void i2c_byte_write_at24c512(u8 sa,u16 mr,u8 *p)
+//{
+//	i2c_start();
+//	i2c_write(sa);	
+//	i2c_ack();
+//	i2c_write((mr>>8)&0xFF);//first byte address
+//	i2c_ack();
+//	i2c_write(mr&0xFF);//second byte address
+//	i2c_ack();
+//	while(*p!='s')
+//	{
+//	i2c_write(*p);
+//	i2c_ack();
+//	p++;
+//	}
+//	i2c_write(*p);
+//	i2c_ack();
+//	delay(10);
+//	i2c_stop();
+//}
 
-				i2c_write((mr>>8)&0xFF); //higher byte memory address
-				i2c_ack();
-				i2c_write(mr&0xFF);//lower byte memory address
-				i2c_ack();
 
-				while(*p)
-				{
-					i2c_write(*p);
-					i2c_ack();
-				  p++;i++;
-				}
+//u8 i2c_byte_read_at24c512(u8 sa,u16 mr)
+//{
+//	u8 temp;
+//	i2c_start();
+//	i2c_write(sa);
+//	i2c_ack();
+//	i2c_write((mr>>8)&0xFF);//first byte address
+//	i2c_ack();
+//	i2c_write(mr&0xFF);//second byte address
+//	i2c_ack();
+//	i2c_start();
+//	i2c_write(sa|0x1);
+//	i2c_ack();
+//	temp=i2c_read();
+//	i2c_ack();
+//	//i2c_noack();
+//	i2c_stop();
+//	//delay(10);
+//	return temp;
+//}
 
-				i2c_stop();
-				delay(10);
-				return i;
-}
-u8 i2c_byte_read_at24c512(u8 sa,u16 mr)
-{
-			u8 temp;
-			i2c_start();
-			i2c_write(sa);//sa+w
-			i2c_ack();
-			i2c_write((mr>>8)&0xFF); //higher byte address
-			i2c_ack();
-			i2c_write(mr&0xFF);//lower byte address
-			i2c_ack();
-			i2c_start();//restart condition
-			i2c_write(sa|0x1);//SA+R
-			i2c_ack();
-			temp=i2c_read();
-			i2c_noack();
-			i2c_stop();
-			return temp;
-}
 //u8 i2c_byte_read_frame(u8 sa,u8 mrh,u8 mrl)
 //{
 //	u8 i=0;
@@ -120,7 +124,7 @@ void i2c_byte_write_frame(u8 sa,u8 mr, u8 d)
 
 			i2c_write(d);
 			v=i2c_ack();
-
+//
 			i2c_stop();
 }
 u8 i2c_byte_read_frame(u8 sa,u8 mr)
@@ -140,6 +144,7 @@ u8 i2c_byte_read_frame(u8 sa,u8 mr)
 			temp=i2c_read();
 			i2c_noack();
 			i2c_stop();
+	delay(10);
 			return temp;
 }
 //void uart_tx_hexa(u8 n){

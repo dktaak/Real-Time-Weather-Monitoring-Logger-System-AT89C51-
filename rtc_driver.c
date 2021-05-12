@@ -48,12 +48,12 @@ void rtc_read_time(u8 *time)
 	time[8]=' ';
 	time[10]='\0';	
 }
-void rtc_set_date(u8 dt,u8 mn,u8 yr){
-	i2c_byte_write_frame(0xD0,0x4,dt);//set hr
-	i2c_byte_write_frame(0xD0,0x5,mn);//set min
-	i2c_byte_write_frame(0xD0,0x6,yr);//set sec
-	
-}
+//void rtc_set_date(u8 dt,u8 mn,u8 yr){
+//	i2c_byte_write_frame(0xD0,0x4,dt);//set hr
+//	i2c_byte_write_frame(0xD0,0x5,mn);//set min
+//	i2c_byte_write_frame(0xD0,0x6,yr);//set sec
+//	
+//}
 
 
 //void rtc_read_date(u8 *time)

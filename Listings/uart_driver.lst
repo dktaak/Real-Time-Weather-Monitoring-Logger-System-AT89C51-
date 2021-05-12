@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/02/2021 10:09:26 PAGE 1   
+C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/09/2021 21:06:45 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE UART_DRIVER
@@ -41,123 +41,181 @@ line level    source
   31   1      TI=0;
   32   1      }
   33          
-  34          u8 uart_rx(void)
-  35          {
-  36   1      while(RI==0);
-  37   1        RI=0;
-  38   1      return SBUF;
-  39   1      }
+  34          //u8 uart_rx(void)
+  35          //{
+  36          //while(RI==0);
+  37          //  RI=0;
+  38          //return SBUF;
+  39          //}
   40          
   41          void uart_tx_string(u8 *str)
   42          {
   43   1        while(*str)
   44   1        {
-  45   2          uart_tx(*str);
-  46   2          str++;
-  47   2        }
-  48   1      }
-  49          
-  50          void uart_rx_string(u8 *ptr,u8 max_len)
-  51          {
-  52   1        u8 i;RI=0;
-  53   1        for(i=0;i<max_len;i++)
-  54   1        {
-C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/02/2021 10:09:26 PAGE 2   
+  45   2      //    if(*str>='0'&&*str<='9')
+  46   2      //      uart_tx(*str48);
+  47   2          //else
+  48   2          uart_tx(*str);
+  49   2          str++;
+  50   2        }
+  51   1      }
+  52          
+  53          //void uart_rx_string(u8 *ptr,u8 max_len)
+  54          //{
+C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/09/2021 21:06:45 PAGE 2   
 
-  55   2          while(RI==0);
-  56   2          RI=0;//imp
-  57   2          ptr[i]=SBUF;
-  58   2          uart_tx(ptr[i]);
-  59   2          if(ptr[i]==Enter_key){
-  60   3            ptr[i]='\0';
-  61   3            break;
-  62   3          }
-  63   2        }
-  64   1        ptr[i]='\0';
-  65   1      }
-  66          
-  67          void uart_int(s8 n)
-  68          {
-  69   1        s8 i=0,a[10];
-  70   1        if(n<0){
-  71   2          uart_tx('-');
-  72   2          n=-n;
-  73   2        }
-  74   1        if(n==0)
-  75   1          uart_tx(48);
-  76   1        while(n)
-  77   1        {
-  78   2          a[i]=(n%10)+48;
-  79   2          n=n/10;
-  80   2          i++;
-  81   2        }
-  82   1        for(--i;i>=0;i--)
-  83   1        {
-  84   2          uart_tx(a[i]);
-  85   2        } 
-  86   1      }
-  87          void uart_float(float f){
-  88   1        long int ip,dp;
-  89   1        if(f<0){
-  90   2          uart_tx('-');
-  91   2          f=-f;
-  92   2        }
-  93   1        ip=f;
-  94   1        dp=(f-ip)*100;
-  95   1        uart_int(ip);
-  96   1        uart_tx('.');
-  97   1        uart_int(dp);
+  55          //  u8 i;RI=0;
+  56          //  for(i=0;i<max_len;i++)
+  57          //  {
+  58          //    while(RI==0);
+  59          //    RI=0;//imp
+  60          //    ptr[i]=SBUF;
+  61          //    uart_tx(ptr[i]);
+  62          //    if(ptr[i]==Enter_key){
+  63          //      ptr[i]='\0';
+  64          //      break;
+  65          //    }
+  66          //  }
+  67          //  ptr[i]='\0';
+  68          //}
+  69          u8 conv_int(s16 n,s8* a)
+  70          {
+  71   1        s8 i=0,k=0,j=0,temp=0;
+  72   1      //static u8 a[10];
+  73   1        if(n==0)
+  74   1        {
+  75   2          a[i]=48;
+  76   2          ++i;
+  77   2          goto l1;
+  78   2        }
+  79   1        if(n<0){
+  80   2          n=-n;
+  81   2          a[i++]='-';
+  82   2          k++;
+  83   2        }
+  84   1        while(n)
+  85   1        {
+  86   2          a[i++]=(n%10)+48;
+  87   2          n=n/10;
+  88   2        }
+  89   1        for(j=i-1;k<j;k++,j--)
+  90   1        {
+  91   2          temp=a[j];
+  92   2          a[j]=a[k];
+  93   2          a[k]=temp;
+  94   2        } 
+  95   1        l1:
+  96   1        a[i]='\0';
+  97   1        return i+1;
   98   1      }
-  99          //void uart_tx_integer(u8 n)
- 100          //{
- 101          //  s8 i=0,j,a[3]={0,0,0};
- 102          //  while(n)
- 103          //  {
- 104          //    a[i]=(n%10)+48;
- 105          //    n=n/10;
- 106          //    i++;
- 107          //  }
- 108          //  for(j=i-1;j>=0;j--)
- 109          //  {
- 110          //    uart_tx(a[j]);
- 111          //  } 
- 112          //}
- 113          //void uart_rx_time(u8 *d)
- 114          //{
- 115          //uart_rx_string(d,10);
- 116          
-C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/02/2021 10:09:26 PAGE 3   
+  99          u8 conv_float(float f,u8* a){
+ 100   1        u8 ip,dp;u8 i=0;
+ 101   1        if(f<0){
+ 102   2          f=-f;
+ 103   2          a[i]='-';
+ 104   2        }
+ 105   1        ip=f;
+ 106   1        conv_int(ip,a);
+ 107   1        while(a[i++]);
+ 108   1        i--;
+ 109   1        a[i++]='.';
+ 110   1        dp=(f-ip)*100;
+ 111   1        conv_int(dp,a+i++);
+ 112   1        if(dp%10==0)
+ 113   1        {
+ 114   2          a[i++]=48;
+ 115   2          a[i]='\0';
+ 116   2        }
+C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/09/2021 21:06:45 PAGE 3   
 
- 117          //d[0]=(((d[0]%48)<<4)|(d[1]%48));
- 118          //d[1]=(((d[3]%48)<<4)|(d[4]%48));
- 119          //d[2]=(((d[6]%48)<<4)|(d[7]%48));
+ 117   1        return i+1;
+ 118   1      }
+ 119          
  120          
- 121          //  if(d[9]=='A')
- 122          //    d[3]=0;
- 123          //  else
- 124          //    d[3]=1;
- 125          //  
- 126          //   d[4]='\0';
- 127          //}
- 128          
- 129          //void uart_rx_date(u8 *d)
- 130          //{
- 131          //uart_rx_string(d,8);
- 132          
- 133          //d[0]=(((d[0]%48)<<4)|(d[1]%48));
- 134          //d[1]=(((d[3]%48)<<4)|(d[4]%48));
- 135          //d[2]=(((d[6]%48)<<4)|(d[7]%48));
- 136          //   
- 137          //   d[4]='\0';
- 138          //}
+ 121          //void uart_int(s16 n)
+ 122          //{
+ 123          //  s8 i=0,a[10];
+ 124          //  if(n<0){
+ 125          //    uart_tx('-');
+ 126          //    n=-n;
+ 127          //  }
+ 128          //  if(n==0)
+ 129          //    uart_tx(48);
+ 130          //  while(n)
+ 131          //  {
+ 132          //    a[i]=(n%10)+48;
+ 133          //    n=n/10;
+ 134          //    i++;
+ 135          //  }
+ 136          //  for(--i;i>=0;i--)
+ 137          //  {
+ 138          //    uart_tx(a[i]);
+ 139          //  } 
+ 140          //}
+ 141          //void uart_float(float f){
+ 142          //  long int ip,dp;
+ 143          //  if(f<0){
+ 144          //    uart_tx('-');
+ 145          //    f=-f;
+ 146          //  }
+ 147          //  ip=f;
+ 148          //  dp=(f-ip)*100;
+ 149          //  uart_int(ip);
+ 150          //  uart_tx('.');
+ 151          //  uart_int(dp);
+ 152          //  if(dp==0)
+ 153          //  uart_tx(48);
+ 154          //}
+ 155          //void uart_tx_integer(u8 n)
+ 156          //{
+ 157          //  s8 i=0,j,a[3]={0,0,0};
+ 158          //  while(n)
+ 159          //  {
+ 160          //    a[i]=(n%10)+48;
+ 161          //    n=n/10;
+ 162          //    i++;
+ 163          //  }
+ 164          //  for(j=i-1;j>=0;j--)
+ 165          //  {
+ 166          //    uart_tx(a[j]);
+ 167          //  } 
+ 168          //}
+ 169          //void uart_rx_time(u8 *d)
+ 170          //{
+ 171          //uart_rx_string(d,10);
+ 172          
+ 173          //d[0]=(((d[0]%48)<<4)|(d[1]%48));
+ 174          //d[1]=(((d[3]%48)<<4)|(d[4]%48));
+ 175          //d[2]=(((d[6]%48)<<4)|(d[7]%48));
+ 176          
+ 177          //  if(d[9]=='A')
+ 178          //    d[3]=0;
+C51 COMPILER V9.60.0.0   UART_DRIVER                                                       05/09/2021 21:06:45 PAGE 4   
+
+ 179          //  else
+ 180          //    d[3]=1;
+ 181          //  
+ 182          //   d[4]='\0';
+ 183          //}
+ 184          
+ 185          //void uart_rx_date(u8 *d)
+ 186          //{
+ 187          //uart_rx_string(d,8);
+ 188          
+ 189          //d[0]=(((d[0]%48)<<4)|(d[1]%48));
+ 190          //d[1]=(((d[3]%48)<<4)|(d[4]%48));
+ 191          //d[2]=(((d[6]%48)<<4)|(d[7]%48));
+ 192          //   
+ 193          //   d[4]='\0';
+ 194          //}
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    418    ----
+   CODE SIZE        =    583    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      25
+   DATA SIZE        =   ----      19
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

@@ -1,7 +1,6 @@
 #include"header.h"
 
 #define lcd_port P0
-extern delay(u16);
 sbit RS=P2^0;
 sbit RW=P2^1;
 sbit EN=P2^2;
@@ -64,16 +63,16 @@ void lcd_int(signed long int n){
 	}
 }
 
-void lcd_float(float f){
-	long int ip,dp;
-	if(f<0){
-		lcd_data('-');
-		f=-f;
-	}
-	ip=f;
-	dp=(f-ip)*100;
-	lcd_int(ip);
-	lcd_data('.');
-	lcd_int(dp);
-}
-//hello
+//void lcd_float(float f){
+//	long int ip,dp;
+//	if(f<0){
+//		lcd_data('-');
+//		f=-f;
+//	}
+//	ip=f;
+//	dp=(f-ip)*100;
+//	lcd_int(ip);
+//	lcd_data('.');
+//	lcd_int(dp);
+//}
+////hello

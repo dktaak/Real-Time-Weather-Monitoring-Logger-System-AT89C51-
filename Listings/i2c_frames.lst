@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 1   
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/09/2021 22:27:17 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE I2C_FRAMES
@@ -10,212 +10,217 @@ line level    source
 
    1          #include"header.h"
    2          bit v;u8 a[2]={0,0};
-   3          extern delay(u16);
+   3          //extern delay(u16);
    4          
-   5          u8 i2c_byte_read_ds1621(void)
+   5          s8 i2c_byte_read_ds1621(void)
    6          {
-   7   1        u8 sa=0x90;
-   8   1        u8 temp;
-   9   1        i2c_start();//restart condition
-  10   1        i2c_write(sa);//sa+w
-  11   1        i2c_ack();
-  12   1        i2c_write(0xAA);//init temp conv
-  13   1        i2c_ack();
-  14   1      
-  15   1        i2c_start();//restart condition
-  16   1        i2c_write(sa|0x1);//SA+R
-  17   1        i2c_ack();
-  18   1        temp=i2c_read();
-  19   1        i2c_stop();
-  20   1        return temp;
-  21   1      }
-  22          
-  23          void i2c_byte_set_ds1621(void)
-  24          {
-  25   1        u8 sa=0x90;
-  26   1      
-  27   1        i2c_start();
-  28   1        i2c_write(sa);//sa+w
-  29   1        i2c_ack();
-  30   1        i2c_write(0xAc);
+   7   1        
+   8   1        u8 sa=0x90;
+   9   1        u8 temp;
+  10   1        i2c_start();//restart condition
+  11   1        i2c_write(sa);//sa+w
+  12   1        i2c_ack();
+  13   1        i2c_write(0xAA);//init temp conv
+  14   1        i2c_ack();
+  15   1      
+  16   1        i2c_start();//restart condition
+  17   1        i2c_write(sa|0x1);//SA+R
+  18   1        i2c_ack();
+  19   1        temp=i2c_read();
+  20   1        i2c_ack();
+  21   1        i2c_stop();
+  22   1        return temp;
+  23   1      }
+  24          
+  25          void i2c_byte_set_ds1621(void)
+  26          {
+  27   1        u8 sa=0x90;
+  28   1      
+  29   1        i2c_start();
+  30   1        i2c_write(sa);//sa+w
   31   1        i2c_ack();
-  32   1        i2c_write(0x02);
+  32   1        i2c_write(0xAc);
   33   1        i2c_ack();
-  34   1        
-  35   1        i2c_start();//restart condition
-  36   1        i2c_write(sa);//sa+w
-  37   1        i2c_ack();
-  38   1        i2c_write(0xEE);//init temp conv
+  34   1        i2c_write(0x02);
+  35   1        i2c_ack();
+  36   1        
+  37   1        i2c_start();//restart condition
+  38   1        i2c_write(sa);//sa+w
   39   1        i2c_ack();
-  40   1        
-  41   1        i2c_stop();
-  42   1      }
-  43          
-  44          u8 i2c_byte_write_at24c512(u8 sa,u16 mr,u8 *p)
-  45          {
-  46   1              u8 i=0;
-  47   1              i2c_start();
-  48   1              i2c_write(sa);
-  49   1              i2c_ack();
-  50   1      
-  51   1              i2c_write((mr>>8)&0xFF); //higher byte memory address
-  52   1              i2c_ack();
-  53   1              i2c_write(mr&0xFF);//lower byte memory address
-  54   1              i2c_ack();
-C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 2   
+  40   1        i2c_write(0xEE);//init temp conv
+  41   1        i2c_ack();
+  42   1        
+  43   1        i2c_stop();
+  44   1      }
+  45          
+  46          //void i2c_byte_write_at24c512(u8 sa,u16 mr,u8 *p)
+  47          //{
+  48          //  i2c_start();
+  49          //  i2c_write(sa);  
+  50          //  i2c_ack();
+  51          //  i2c_write((mr>>8)&0xFF);//first byte address
+  52          //  i2c_ack();
+  53          //  i2c_write(mr&0xFF);//second byte address
+  54          //  i2c_ack();
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/09/2021 22:27:17 PAGE 2   
 
-  55   1      
-  56   1              while(*p)
-  57   1              {
-  58   2                i2c_write(*p);
-  59   2                i2c_ack();
-  60   2                p++;i++;
-  61   2              }
-  62   1      
-  63   1              i2c_stop();
-  64   1              delay(10);
-  65   1              return i;
-  66   1      }
-  67          u8 i2c_byte_read_at24c512(u8 sa,u16 mr)
-  68          {
-  69   1            u8 temp;
-  70   1            i2c_start();
-  71   1            i2c_write(sa);//sa+w
-  72   1            i2c_ack();
-  73   1            i2c_write((mr>>8)&0xFF); //higher byte address
-  74   1            i2c_ack();
-  75   1            i2c_write(mr&0xFF);//lower byte address
-  76   1            i2c_ack();
-  77   1            i2c_start();//restart condition
-  78   1            i2c_write(sa|0x1);//SA+R
-  79   1            i2c_ack();
-  80   1            temp=i2c_read();
-  81   1            i2c_noack();
-  82   1            i2c_stop();
-  83   1            return temp;
-  84   1      }
-  85          //u8 i2c_byte_read_frame(u8 sa,u8 mrh,u8 mrl)
-  86          //{
-  87          //  u8 i=0;
-  88          //   u8 temp;
-  89          //  i2c_start();
-  90          //  
-  91          //  i2c_write(sa);
-  92          //    v=i2c_ack();
-  93          //  
-  94          //  i2c_write(mrh);
-  95          //    v=i2c_ack();
-  96          //  
-  97          //  i2c_write(mrl);
-  98          //    v=i2c_ack();
-  99          //  
- 100          //  i2c_start();
- 101          //  i2c_write(sa|1);//sa+R
+  55          //  while(*p!='s')
+  56          //  {
+  57          //  i2c_write(*p);
+  58          //  i2c_ack();
+  59          //  p++;
+  60          //  }
+  61          //  i2c_write(*p);
+  62          //  i2c_ack();
+  63          //  delay(10);
+  64          //  i2c_stop();
+  65          //}
+  66          
+  67          
+  68          //u8 i2c_byte_read_at24c512(u8 sa,u16 mr)
+  69          //{
+  70          //  u8 temp;
+  71          //  i2c_start();
+  72          //  i2c_write(sa);
+  73          //  i2c_ack();
+  74          //  i2c_write((mr>>8)&0xFF);//first byte address
+  75          //  i2c_ack();
+  76          //  i2c_write(mr&0xFF);//second byte address
+  77          //  i2c_ack();
+  78          //  i2c_start();
+  79          //  i2c_write(sa|0x1);
+  80          //  i2c_ack();
+  81          //  temp=i2c_read();
+  82          //  i2c_ack();
+  83          //  //i2c_noack();
+  84          //  i2c_stop();
+  85          //  //delay(10);
+  86          //  return temp;
+  87          //}
+  88          
+  89          //u8 i2c_byte_read_frame(u8 sa,u8 mrh,u8 mrl)
+  90          //{
+  91          //  u8 i=0;
+  92          //   u8 temp;
+  93          //  i2c_start();
+  94          //  
+  95          //  i2c_write(sa);
+  96          //    v=i2c_ack();
+  97          //  
+  98          //  i2c_write(mrh);
+  99          //    v=i2c_ack();
+ 100          //  
+ 101          //  i2c_write(mrl);
  102          //    v=i2c_ack();
- 103          
- 104          //  temp=i2c_read();
- 105          
- 106          //  //temp[5]='\0';
- 107          //  i2c_noack();
- 108          //  i2c_stop();
- 109          //  return temp;
- 110          //}
- 111          void i2c_byte_write_frame(u8 sa,u8 mr, u8 d)
- 112          {
- 113   1        
- 114   1            i2c_start();
- 115   1            i2c_write(sa);
- 116   1            v=i2c_ack();
-C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 3   
+ 103          //  
+ 104          //  i2c_start();
+ 105          //  i2c_write(sa|1);//sa+R
+ 106          //    v=i2c_ack();
+ 107          
+ 108          //  temp=i2c_read();
+ 109          
+ 110          //  //temp[5]='\0';
+ 111          //  i2c_noack();
+ 112          //  i2c_stop();
+ 113          //  return temp;
+ 114          //}
+ 115          void i2c_byte_write_frame(u8 sa,u8 mr, u8 d)
+ 116          {
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/09/2021 22:27:17 PAGE 3   
 
- 117   1      
- 118   1            i2c_write(mr);
- 119   1            v=i2c_ack();
- 120   1      
- 121   1            i2c_write(d);
- 122   1            v=i2c_ack();
- 123   1      
- 124   1            i2c_stop();
- 125   1      }
- 126          u8 i2c_byte_read_frame(u8 sa,u8 mr)
- 127          {
- 128   1            u8 temp;
- 129   1            i2c_start();
- 130   1            i2c_write(sa);
- 131   1            v=i2c_ack();
- 132   1      
- 133   1            i2c_write(mr);
- 134   1            v=i2c_ack();
- 135   1      
- 136   1            i2c_start();
- 137   1            i2c_write(sa|1);//sa+R
+ 117   1        
+ 118   1            i2c_start();
+ 119   1            i2c_write(sa);
+ 120   1            v=i2c_ack();
+ 121   1      
+ 122   1            i2c_write(mr);
+ 123   1            v=i2c_ack();
+ 124   1      
+ 125   1            i2c_write(d);
+ 126   1            v=i2c_ack();
+ 127   1      //
+ 128   1            i2c_stop();
+ 129   1      }
+ 130          u8 i2c_byte_read_frame(u8 sa,u8 mr)
+ 131          {
+ 132   1            u8 temp;
+ 133   1            i2c_start();
+ 134   1            i2c_write(sa);
+ 135   1            v=i2c_ack();
+ 136   1      
+ 137   1            i2c_write(mr);
  138   1            v=i2c_ack();
  139   1      
- 140   1            temp=i2c_read();
- 141   1            i2c_noack();
- 142   1            i2c_stop();
- 143   1            return temp;
- 144   1      }
- 145          //void uart_tx_hexa(u8 n){
- 146          //    s8 r,i=1;
- 147          //    while(n)
- 148          //    {
- 149          //      r=n%16;
- 150          //      if(r>9)
- 151          //        a[i]=r+55;
- 152          //      else 
- 153          //        a[i]=r+48;
- 154          //      i--;
- 155          //      n=n/16;
- 156          //    }
- 157          //    for(i=0;i<2;i++)
- 158          //     uart_tx(a[i]);
- 159          //}
- 160          
- 161          //void i2c_detect(void){
- 162          //  u8 sa,temp;
- 163          //  u32 c=0;
- 164          ////  memset(a,0,sizeof(a));
- 165          //  uart_init(9600);
- 166          //  uart_tx_string("Device address\r\n");
- 167          //  for(sa=0;sa<255;sa++){
- 168          //  
- 169          //      temp=sa&0xFE;
- 170          //    i2c_start();
- 171          //   //i2c_write(sa<<1);
- 172          //    i2c_write(temp);
- 173          //    //   uart_tx_integer(sa);
- 174          //   v=i2c_ack();
- 175          //    i2c_stop();
- 176          //    if(v==0){
- 177          //      c++;
- 178          //      sa++;
-C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/02/2021 10:09:25 PAGE 4   
+ 140   1            i2c_start();
+ 141   1            i2c_write(sa|1);//sa+R
+ 142   1            v=i2c_ack();
+ 143   1      
+ 144   1            temp=i2c_read();
+ 145   1            i2c_noack();
+ 146   1            i2c_stop();
+ 147   1        delay(10);
+ 148   1            return temp;
+ 149   1      }
+ 150          //void uart_tx_hexa(u8 n){
+ 151          //    s8 r,i=1;
+ 152          //    while(n)
+ 153          //    {
+ 154          //      r=n%16;
+ 155          //      if(r>9)
+ 156          //        a[i]=r+55;
+ 157          //      else 
+ 158          //        a[i]=r+48;
+ 159          //      i--;
+ 160          //      n=n/16;
+ 161          //    }
+ 162          //    for(i=0;i<2;i++)
+ 163          //     uart_tx(a[i]);
+ 164          //}
+ 165          
+ 166          //void i2c_detect(void){
+ 167          //  u8 sa,temp;
+ 168          //  u32 c=0;
+ 169          ////  memset(a,0,sizeof(a));
+ 170          //  uart_init(9600);
+ 171          //  uart_tx_string("Device address\r\n");
+ 172          //  for(sa=0;sa<255;sa++){
+ 173          //  
+ 174          //      temp=sa&0xFE;
+ 175          //    i2c_start();
+ 176          //   //i2c_write(sa<<1);
+ 177          //    i2c_write(temp);
+ 178          //    //   uart_tx_integer(sa);
+C51 COMPILER V9.60.0.0   I2C_FRAMES                                                        05/09/2021 22:27:17 PAGE 4   
 
- 179          //     uart_tx_string("0x");
- 180          //      uart_tx_hexa(temp);
- 181          //      //uart_tx_hexa(sa<<1);
- 182          ////     if((sa<<1)==0xD0)
- 183          ////      uart_tx_string("  RTC");//
- 184          ////     if((sa<<1)==0xA0)
- 185          ////      uart_tx_string("  EEPROM"); 
- 186          ////     uart_tx_string("\r\n");
- 187          //   }  
- 188          //  
- 189          
- 190          //   }
- 191          //   uart_tx_string("\r\nTotal devices: "); 
- 192          //   uart_int(c);
- 193          // }
+ 179          //   v=i2c_ack();
+ 180          //    i2c_stop();
+ 181          //    if(v==0){
+ 182          //      c++;
+ 183          //      sa++;
+ 184          //     uart_tx_string("0x");
+ 185          //      uart_tx_hexa(temp);
+ 186          //      //uart_tx_hexa(sa<<1);
+ 187          ////     if((sa<<1)==0xD0)
+ 188          ////      uart_tx_string("  RTC");//
+ 189          ////     if((sa<<1)==0xA0)
+ 190          ////      uart_tx_string("  EEPROM"); 
+ 191          ////     uart_tx_string("\r\n");
+ 192          //   }  
+ 193          //  
  194          
+ 195          //   }
+ 196          //   uart_tx_string("\r\nTotal devices: "); 
+ 197          //   uart_int(c);
+ 198          // }
+ 199          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    353    ----
+   CODE SIZE        =    208    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      2      20
+   DATA SIZE        =      2       9
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      1    ----
 END OF MODULE INFORMATION.

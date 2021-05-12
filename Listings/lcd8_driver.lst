@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   LCD8_DRIVER                                                       05/02/2021 10:09:26 PAGE 1   
+C51 COMPILER V9.60.0.0   LCD8_DRIVER                                                       05/09/2021 22:27:18 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LCD8_DRIVER
@@ -11,92 +11,91 @@ line level    source
    1          #include"header.h"
    2          
    3          #define lcd_port P0
-   4          extern delay(u16);
-   5          sbit RS=P2^0;
-   6          sbit RW=P2^1;
-   7          sbit EN=P2^2;
-   8          
-   9          void lcd_cmd(u8 cmd)
-  10          {
-  11   1        lcd_port=cmd;
-  12   1        RS=0;
-  13   1        RW=0;
-  14   1        EN=1;
-  15   1        delay(2);
-  16   1        EN=0;
-  17   1      }
-  18          void lcd_data(u8 ch)
-  19          {
-  20   1        lcd_port=ch;
-  21   1        RS=1;
-  22   1        RW=0;
-  23   1        EN=1;
-  24   1        delay(2);
-  25   1        EN=0;
-  26   1      }
-  27          void lcd_init(void)
-  28          {
-  29   1        lcd_cmd(0x02);//cursur move to home position
-  30   1        lcd_cmd(0x38);//8 bit_ mode
-  31   1        lcd_cmd(0x0E);//cursur on
-  32   1        lcd_cmd(0x01);
-  33   1      }
-  34          void lcd_string(s8 *p)
-  35          {
-  36   1        while(*p!='\0')
-  37   1        {
-  38   2      //    if((*p)==Enter_key)
-  39   2      //      {
-  40   2      //      lcd_cmd(0xc0);
-  41   2      //        p++;
-  42   2      //      }
-  43   2          lcd_data(*p);
-  44   2          p++;
-  45   2        }
-  46   1        
-  47   1      }
-  48          
-  49          void lcd_int(signed long int n){
-  50   1        signed long int i=0,a[16];
-  51   1        if(n<0){
-  52   2          lcd_data('-');
-  53   2          n=-n;
-  54   2        }
-C51 COMPILER V9.60.0.0   LCD8_DRIVER                                                       05/02/2021 10:09:26 PAGE 2   
+   4          sbit RS=P2^0;
+   5          sbit RW=P2^1;
+   6          sbit EN=P2^2;
+   7          
+   8          void lcd_cmd(u8 cmd)
+   9          {
+  10   1        lcd_port=cmd;
+  11   1        RS=0;
+  12   1        RW=0;
+  13   1        EN=1;
+  14   1        delay(2);
+  15   1        EN=0;
+  16   1      }
+  17          void lcd_data(u8 ch)
+  18          {
+  19   1        lcd_port=ch;
+  20   1        RS=1;
+  21   1        RW=0;
+  22   1        EN=1;
+  23   1        delay(2);
+  24   1        EN=0;
+  25   1      }
+  26          void lcd_init(void)
+  27          {
+  28   1        lcd_cmd(0x02);//cursur move to home position
+  29   1        lcd_cmd(0x38);//8 bit_ mode
+  30   1        lcd_cmd(0x0E);//cursur on
+  31   1        lcd_cmd(0x01);
+  32   1      }
+  33          void lcd_string(s8 *p)
+  34          {
+  35   1        while(*p!='\0')
+  36   1        {
+  37   2      //    if((*p)==Enter_key)
+  38   2      //      {
+  39   2      //      lcd_cmd(0xc0);
+  40   2      //        p++;
+  41   2      //      }
+  42   2          lcd_data(*p);
+  43   2          p++;
+  44   2        }
+  45   1        
+  46   1      }
+  47          
+  48          void lcd_int(signed long int n){
+  49   1        signed long int i=0,a[16];
+  50   1        if(n<0){
+  51   2          lcd_data('-');
+  52   2          n=-n;
+  53   2        }
+  54   1        if(n==0)
+C51 COMPILER V9.60.0.0   LCD8_DRIVER                                                       05/09/2021 22:27:18 PAGE 2   
 
-  55   1        if(n==0)
-  56   1          lcd_data(48);
-  57   1        while(n){
-  58   2          a[i]=n%10;
-  59   2          i++;
-  60   2          n=n/10;
-  61   2        }
-  62   1        for(i=i-1;i>=0;i--){
-  63   2          lcd_data(a[i]+48);
-  64   2        }
-  65   1      }
-  66          
-  67          void lcd_float(float f){
-  68   1        long int ip,dp;
-  69   1        if(f<0){
-  70   2          lcd_data('-');
-  71   2          f=-f;
-  72   2        }
-  73   1        ip=f;
-  74   1        dp=(f-ip)*100;
-  75   1        lcd_int(ip);
-  76   1        lcd_data('.');
-  77   1        lcd_int(dp);
-  78   1      }
-  79          //hello
+  55   1          lcd_data(48);
+  56   1        while(n){
+  57   2          a[i]=n%10;
+  58   2          i++;
+  59   2          n=n/10;
+  60   2        }
+  61   1        for(i=i-1;i>=0;i--){
+  62   2          lcd_data(a[i]+48);
+  63   2        }
+  64   1      }
+  65          
+  66          //void lcd_float(float f){
+  67          //  long int ip,dp;
+  68          //  if(f<0){
+  69          //    lcd_data('-');
+  70          //    f=-f;
+  71          //  }
+  72          //  ip=f;
+  73          //  dp=(f-ip)*100;
+  74          //  lcd_int(ip);
+  75          //  lcd_data('.');
+  76          //  lcd_int(dp);
+  77          //}
+  78          ////hello
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    445    ----
+   CODE SIZE        =    305    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      87
+   DATA SIZE        =   ----      75
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

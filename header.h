@@ -1,20 +1,21 @@
 #include<reg51.h>
+#include<intrins.h>   //For using [_nop_()]
 //hello
-#define PORT0 0
-#define PORT1 1
-#define PORT2 2
-#define PORT3 3
-#define CLEAR 0
-#define SET 1
-#define Enter_key '\r'
-
+////#define PORT0 0
+////#define PORT1 1
+////#define PORT2 2
+////#define PORT3 3
+////#define CLEAR 0
+////#define SET 1
+////#define Enter_key '\r'
+#define adc_vtg ((5.0/4095)*(temp))
+#define adc_per ((100.0/4095)*(temp))
 #define time_format_12hrs_AM  0
 #define time_format_12hrs_PM  1
 #define time_format_24hrs     2
 
 
-
-//extern void delay(unsigned short int ms);
+extern void delay(unsigned short int ms);
 typedef unsigned long int u32;
 typedef signed long int s32;
 typedef unsigned char u8;
@@ -22,7 +23,14 @@ typedef unsigned short int u16;
 typedef signed char s8;
 typedef signed short int s16;
 
-
+struct P
+{
+	u8 time[11];
+	s8 tmp;
+	u16 pot;
+	u16 ldr;
+	u8 stop;
+};
 
 //sbit led=P1^0;
 //sbit led3=P3^0;
@@ -43,7 +51,7 @@ extern void lcd_data(u8);
 extern void lcd_init(void);
 extern void lcd_string(u8 *);
 extern void lcd_int(long int n);
-extern void lcd_float(float f);
+extern void lcd_float(float);
 extern void cgram_init();
 
 //Timer
@@ -61,8 +69,10 @@ extern void uart_init(u16 baud);
 extern void uart_interrupt_enable(void);
 extern void uart_interrupt_disable(void);
 //extern void uart_tx_integer(u8);
-extern void uart_int(u8);
+extern void uart_int(s16);
 extern void uart_float(float f);
+extern u8 conv_int(s16 n,u8*);
+extern u8 conv_float(float f,u8* a);
 
 //_interrupt
 extern void int0_disable(void);
@@ -83,9 +93,9 @@ extern u8 i2c_byte_read_frame(u8 ,u8 );
 extern void i2c_byte_write_frame(u8 ,u8 , u8);
 //extern u8 i2c_byte_read_frame(u8 ,u8 ,u8);
 
-extern u8 i2c_byte_write_at24c512(u8 ,u16,u8 *);
+extern void i2c_byte_write_at24c512(u8 sa,u16 mr,u8 *);
 extern u8 i2c_byte_read_at24c512(u8 sa,u16 mr);
-extern u8 i2c_byte_read_ds1621(void);
+extern s8 i2c_byte_read_ds1621(void);
 extern void i2c_byte_set_ds1621(void);
 //rtc
 extern void rtc_read_time(u8*);

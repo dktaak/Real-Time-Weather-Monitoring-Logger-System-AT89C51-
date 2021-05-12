@@ -1,0 +1,124 @@
+C51 COMPILER V9.60.0.0   PROJECT_MAIN_LCD_PART                                             05/09/2021 22:27:19 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE PROJECT_MAIN_LCD_PART
+OBJECT MODULE PLACED IN .\Objects\project_main_lcd_part.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE project_main_lcd_part.c OPTIMIZE(8,SPEED) BROWSE PRINT(.\Listings\projec
+                    -t_main_lcd_part.lst) TABS(2) OBJECT(.\Objects\project_main_lcd_part.obj)
+
+line level    source
+
+   1          #include "header.h"
+   2          
+   3          int main()
+   4          {
+   5   1        u32 temp;s8 r[12];
+   6   1        lcd_init();
+   7   1        lcd_cmd(0xc);
+   8   1        rtc_set_time(0x11,0x58,0x40,0);//hr,min,sec
+   9   1        i2c_byte_set_ds1621();
+  10   1        delay(1000);
+  11   1        
+  12   1        lcd_string(" Shree Ganesh Namah");
+  13   1      
+  14   1        while(1)
+  15   1        {
+  16   2            rtc_read_time(r);
+  17   2            lcd_cmd(0xc0);
+  18   2            lcd_string(r);
+  19   2            temp=i2c_byte_read_ds1621();
+  20   2              lcd_cmd(0xcb);
+  21   2              lcd_string("TEMP=");
+  22   2              lcd_int(temp);
+  23   2            temp=read_adc(0,0);
+  24   2            conv_float(adc_vtg,r);
+  25   2              lcd_cmd(0x94);
+  26   2              lcd_string("POT=");
+  27   2              lcd_string(r);
+  28   2            temp=read_adc(0,1);
+  29   2              conv_float(adc_vtg,r);
+  30   2              lcd_cmd(0x9f);
+  31   2              lcd_string("LDR=");
+  32   2              lcd_string(r);
+  33   2        }
+  34   1      }
+  35          u8 conv_int(s16 n,s8* a)
+  36          {
+  37   1        s8 i=0,k=0,j=0,temp=0;
+  38   1      //static u8 a[10];
+  39   1        if(n==0)
+  40   1        {
+  41   2          a[i]=48;
+  42   2          ++i;
+  43   2          goto l1;
+  44   2        }
+  45   1        if(n<0){
+  46   2          n=-n;
+  47   2          a[i++]='-';
+  48   2          k++;
+  49   2        }
+  50   1        while(n)
+  51   1        {
+  52   2          a[i++]=(n%10)+48;
+  53   2          n=n/10;
+  54   2        }
+C51 COMPILER V9.60.0.0   PROJECT_MAIN_LCD_PART                                             05/09/2021 22:27:19 PAGE 2   
+
+  55   1        for(j=i-1;k<j;k++,j--)
+  56   1        {
+  57   2          temp=a[j];
+  58   2          a[j]=a[k];
+  59   2          a[k]=temp;
+  60   2        } 
+  61   1        l1:
+  62   1        a[i]='\0';
+  63   1        return i+1;
+  64   1      }
+  65          u8 conv_float(float f,u8* a){
+  66   1        u8 ip,dp;u8 i=0;
+  67   1        if(f<0){
+  68   2          f=-f;
+  69   2          a[i]='-';
+  70   2        }
+  71   1        ip=f;
+  72   1        conv_int(ip,a);
+  73   1        while(a[i++]);
+  74   1        i--;
+  75   1        a[i++]='.';
+  76   1        dp=(f-ip)*100;
+  77   1        conv_int(dp,a+i++);
+  78   1        if(dp%10==0)
+  79   1        {
+  80   2          a[i++]=48;
+  81   2          a[i]='\0';
+  82   2        }
+  83   1        return i+1;
+  84   1      }
+  85          
+  86          //        lcd_cmd(0x80);
+  87          //        lcd_string(&o.time);
+  88          //        lcd_cmd(0x8b);
+  89          //        lcd_string("temp=");
+  90          //        lcd_int(o.tmp);
+  91          //        lcd_cmd(0xc0);
+  92          //        lcd_string("POT=");
+  93          //        lcd_float(adc_vtg);
+  94          //        lcd_cmd(0xca);
+  95          //        lcd_string("LDR=");
+  96          //        lcd_float(adc_per);
+  97          
+  98          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    695    ----
+   CONSTANT SIZE    =     36    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      35
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
